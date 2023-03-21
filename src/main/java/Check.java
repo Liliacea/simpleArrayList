@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class Check {
     public static void main(String[] args) {
         Integer[] values = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -21,10 +23,33 @@ public class Check {
 
 
 
+/*
 
-        for (int i = 0; i < arrayList.getSize(); i++) {
+        for (int i = 1; i < 21; i++) {
+            arrayList.add(i);
+        }
+
+        arrayList.delete(3);
+
+ */
+
+
+
+        Iterator<Integer> it = arrayList.iterator();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+
+        System.out.println(it.next());
+
+
+
+
+     /*   for (int i = 0; i < arrayList.getSize(); i++) {
             System.out.println(arrayList.get(i));
         }
+
+      */
 
     }
 }
