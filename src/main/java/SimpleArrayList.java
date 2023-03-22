@@ -2,7 +2,12 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-
+/**
+ * Create of simpleArrayList
+ * DEFAULT_CAPACITY of array = 10
+ * arrayList grows in 1.5, when capacity of array is exceeded
+ * @param <E>
+ */
 public class SimpleArrayList<E> implements Iterable<E> {
     SimpleArrayList<E> arrayList;
     private static final int DEFAULT_CAPACITY = 10;
@@ -24,12 +29,20 @@ public class SimpleArrayList<E> implements Iterable<E> {
 
     }
 
+    /**
+     *
+     * @param index
+     * @return value by index
+     */
     public E get(int index) {
 
         return (E) values[index];
     }
 
-
+    /**
+     * add new elements
+     * @param value
+     */
     public void add(E value) {
         values[size] = value;
         size++;
@@ -39,6 +52,11 @@ public class SimpleArrayList<E> implements Iterable<E> {
 
 
     }
+
+    /**
+     * delete elements by index
+     * @param index
+     */
     public  void delete (int index){
     newValues = new Object[values.length-1];
         System.arraycopy(values, 0, newValues, 0, index);
@@ -49,12 +67,24 @@ public class SimpleArrayList<E> implements Iterable<E> {
 
     }
 
+    /**
+     * method allows increase arraylist.
+     * invocated in add
+     * @param newSize
+     * @return
+     */
+
     private Object[] grow(int newSize) {
         Object[] large = Arrays.copyOf(values, (int) (size*1.5));
         values = large;
 
         return values;
     }
+
+    /**
+     * iterator
+     * @return iterator
+     */
 
     @Override
     public Iterator<E> iterator() {
@@ -63,7 +93,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
         int current = 0;
             @Override
             public boolean hasNext() {
-            while (current<values.length) {
+            while (current<values.length-1&&values[current]!=null) {
                 return true;
             }
                 return false;
@@ -81,6 +111,10 @@ public class SimpleArrayList<E> implements Iterable<E> {
         };
     }
 
+    /**
+     *
+     * @return arrayList size
+     */
 
     public int getSize() {
 

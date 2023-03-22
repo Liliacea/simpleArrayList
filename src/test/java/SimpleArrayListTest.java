@@ -1,16 +1,25 @@
 import org.junit.Before;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 
-class SimpleArrayListTest {
-    Integer[] values;
-    SimpleArrayList<Integer> arrayList;
+/**
+ * Test simpleArrayList
+ */
 
-    @BeforeEach
+public class SimpleArrayListTest {
+
+    Integer[] values = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    SimpleArrayList<Integer> arrayList = new SimpleArrayList<>();
+
+    /**
+     * Initialize
+     */
+    @Before
     public void setUp() {
         values = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         arrayList = new SimpleArrayList<>();
@@ -19,23 +28,105 @@ class SimpleArrayListTest {
         arrayList.add(3);
     }
 
-    @Test
-    void get() {
+    /**
+     * get return value by index
+     */
+
+    @Test()
+    public void get() {
 
         assertThat(arrayList.get(2), is(3));
     }
 
-    
-
+    /**
+     * arrayList size is The number of elements
+     */
     @Test
-    void delete() {
+    public void add() {
+        assertThat(arrayList.getSize(), is(3));
     }
 
+    /**
+     * arraylist increases capacity.
+     */
     @Test
-    void iterator() {
+    public void addALotAndGrowUp() {
+        values = new Integer[]{1, 2, 3};
+        arrayList = new SimpleArrayList<>();
+
+        for (int i = 0; i < 200; i++) {
+            arrayList.add(i);
+        }
+        assertThat(arrayList.getSize(), is(200));
+
     }
 
+    /**
+     * deleting reduces the arrayList size by the number of elements removed
+     */
+
     @Test
-    void getSize() {
+    public void delete() {
+        arrayList.delete(1);
+        assertThat(arrayList.getSize(), is(2));
+
     }
+
+    /**
+     * return arrayList size
+     */
+
+    @Test
+    public void getSize() {
+        assertThat(arrayList.getSize(),is(3));
+    }
+
+    /**
+     * If the item does not exist, an exception is thrown.
+     */
+
+    @Test(expected = NoSuchElementException.class)
+    public void iteratorHasNextNextSequentialInvocation() {
+
+        Iterator<Integer> it = arrayList.iterator();
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(1));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(2));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(3));
+        assertThat(it.hasNext(), is(false));
+        it.next();
+    }
+    /**
+     * Wrong order of invocation.
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void sequentialHasNextInvocationDoesntAffectRetrievalOrder() {
+        Iterator<Integer> it = arrayList.iterator();
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
+        it.next();
+    }
+    /**
+     * Multiply invocation of hasNext return the same values
+     */
+    @Test
+    public void hasNextReturnTheSameValues() {
+        Iterator<Integer> it = arrayList.iterator();
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+    }
+
 }
+
