@@ -81,7 +81,9 @@ public class SimpleArrayListTest {
         assertThat(arrayList.getSize(), is(3));
         assertThat(arrayList.get(0), is(1));
         assertThat(arrayList.get(1), is(3));
-
+        arrayList.remove(0);
+        assertNull(arrayList.get(1));
+        assertThat(arrayList.get(0),is(3));
     }
 
     /**

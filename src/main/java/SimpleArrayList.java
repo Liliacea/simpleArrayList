@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class SimpleArrayList<E> implements Iterable<E> {
     SimpleArrayList<E> arrayList;
-    ArrayList<E> arrayList1;
+
     private static final int DEFAULT_CAPACITY = 10;
     private Object[] values;
     private Object[] newValues;
