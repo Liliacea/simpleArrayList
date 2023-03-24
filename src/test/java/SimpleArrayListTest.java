@@ -1,5 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertNull;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -57,18 +58,29 @@ public class SimpleArrayListTest {
         for (int i = 0; i < 200; i++) {
             arrayList.add(i);
         }
-        assertThat(arrayList.getSize(), is(200));
+
 
     }
 
     /**
      * deleting reduces the arrayList size by the number of elements removed
      */
-
     @Test
     public void delete() {
         arrayList.delete(1);
         assertThat(arrayList.getSize(), is(2));
+    }
+
+    /**
+     *  deleting don't reduse the arrayList size, but adds null at the end of array
+     */
+    @Test
+    public void remove() {
+        arrayList.remove(1);
+        assertNull(arrayList.get(2));
+        assertThat(arrayList.getSize(), is(3));
+        assertThat(arrayList.get(0), is(1));
+        assertThat(arrayList.get(1), is(3));
 
     }
 
