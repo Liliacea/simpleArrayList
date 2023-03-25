@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Create of simpleArrayList
@@ -12,7 +13,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
 
     private static final int DEFAULT_CAPACITY = 10;
     private Object[] values;
-    private Object[] newValues;
+
 
     private int size = 0;
     private int newSize = 15;
@@ -47,7 +48,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
         values[size] = value;
         size++;
         if (size > DEFAULT_CAPACITY - 1) {
-            grow(newSize);
+            grow();
         }
 
 
@@ -59,6 +60,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
      * @param index
      */
     public void delete(int index) {
+        Object [] newValues;
         newValues = new Object[values.length - 1];
         System.arraycopy(values, 0, newValues, 0, index);
         System.arraycopy(values, index + 1, newValues, index, values.length - index - 1);
@@ -100,12 +102,13 @@ public class SimpleArrayList<E> implements Iterable<E> {
      * method allows increase arraylist.
      * invocated in add
      *
-     * @param newSize
+     * @param
      * @return
      */
 
-    private Object[] grow(int newSize) {
-        Object[] large = Arrays.copyOf(values, (int) (size * 1.5));
+    private Object[] grow() {
+        final float growValue = 1.5f;
+        Object[] large = Arrays.copyOf(values, (int) (size * growValue));
         values = large;
 
         return values;
@@ -126,7 +129,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
             @Override
             public boolean hasNext() {
                 while (current < values.length - 1 && values[current] != null) {
-                    return true;
+                    return current < size;
                 }
                 return false;
             }
@@ -151,6 +154,13 @@ public class SimpleArrayList<E> implements Iterable<E> {
 
         return size;
     }
+    /**
+     * @param method метод для замера
+     * @param timeUnit единица измерения
+     * @return время работы
+     */
+
+
 
 }
 
